@@ -1,0 +1,59 @@
+services:
+    app:
+        build:
+            context: ./docker/php
+            args:
+                UID: ${UID:-1000}
+                GID: ${GID:-1000}
+        restart: unless-stopped
+        environment:
+            # Override .env so the same file works on host and in Docker.
+            DB_HOST: mysql
+            DB_PORT: 3306
+            REDIS_HOST: redis
+            MAIL_HOST: mailhog
+            MAIL_PORT: 1025
+            PHP_CLI_SERVER_WORKERS: 4
+        volumes:
+            - ./:/var/www/html
+        ports:
+            - "8000:8000"
+        depends_on:
+            mysql:
+                condition: service_healthy
+            redis:
+                condition: service_started
+            mailhog:
+                condition: service_started
+    mysql:
+        image: mysql:8.0
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            # .env.example ships with an empty DB_PASSWORD; allow it for local dev.
+            MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        command: --default-authentication-plugin=mysql_native_password --bind-address=0.0.0.0
+        volumes:
+            - ./storage/mysql:/var/lib/mysql
+            - ./docker/mysql/init:/docker-entrypoint-initdb.d:ro
+        ports:
+            - "3306:3306"
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "--silent"]
+            interval: 5s
+            timeout: 5s
+            retries: 20
+    redis:
+        image: redis:alpine
+        restart: unless-stopped
+        ports:
+            - "6379:6379"
+    mailhog:
+        image: mailhog/mailhog:latest
+        restart: unless-stopped
+        ports:
+            - "1025:1025"
+            - "8025:8025"
