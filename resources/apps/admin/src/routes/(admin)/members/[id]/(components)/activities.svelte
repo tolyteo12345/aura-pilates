@@ -42,19 +42,19 @@
 
 <div class="flex flex-col">
 	<div class="mb-4 flex items-center">
-		<h3 class="h3 mb-4">Member Activities</h3>
+		<h3 class="h3 mb-4">Nhật ký hoạt động của hội viên</h3>
 		<div class="flex-1"></div>
 	</div>
 
 	<!-- Responsive Container (recommended) -->
 	<div class="table-container">
 		<!-- Native Table Element -->
-		<table class="table-hover table bg-white">
+		<table class="table table-hover bg-surface">
 			<thead>
 				<tr>
 					<th>ID</th>
-					<th>Description</th>
-					<th>Date</th>
+					<th>Mô tả</th>
+					<th>Ngày</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -73,6 +73,12 @@
 			<Paginator
 				bind:settings={paginationSettings}
 				showNumerals
+				amountText="mục"
+				separatorText="trên"
+				labelFirst="Trang đầu"
+				labelPrevious="Trang trước"
+				labelNext="Trang sau"
+				labelLast="Trang cuối"
 				maxNumerals={1}
 				on:amount={(event) => {
 					paginationSettings.limit = event.detail;

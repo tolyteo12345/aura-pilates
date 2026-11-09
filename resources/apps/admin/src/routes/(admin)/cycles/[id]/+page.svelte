@@ -12,7 +12,7 @@
 		Authorization: getBearerToken()
 	});
 
-	let title = 'Edit Billing Cycle';
+	let title = 'Sửa chu kỳ thanh toán';
 
 	let loading = false;
 
@@ -28,7 +28,7 @@
 		api.put(`/cycles/${$page.params.id}`, fields)
 			.then(() => {
 				toast.trigger({
-					message: 'Successfully updated',
+					message: 'Đã cập nhật thành công',
 					background: 'variant-filled-success'
 				});
 			})
@@ -72,8 +72,8 @@
 	<title>{title}</title>
 </svelte:head>
 
-<div class="lg:max-w-1200 p-4 lg:p-6">
-	<div class="card bg-white p-4 lg:p-6">
+<div class="p-4 lg:max-w-1200 lg:p-6">
+	<div class="card bg-surface p-4 lg:p-6">
 		<header class="card-header mb-6 flex items-center">
 			<h3 class="h3">{title}</h3>
 			<div class="flex-1"></div>
@@ -82,7 +82,7 @@
 		<form action="" onsubmit={prevent(onSubmit)}>
 			<div class="mb-4">
 				<label class="label">
-					<span>Name</span>
+					<span>Tên</span>
 					<input
 						class="input"
 						bind:value={fields.name}
@@ -96,7 +96,7 @@
 
 			<div class="mb-4">
 				<label class="label">
-					<span>Number Days</span>
+					<span>Số ngày</span>
 					<input
 						class="input"
 						bind:value={fields.num_days}
@@ -110,7 +110,7 @@
 
 			<div class="mb-4">
 				<label class="label">
-					<span>Status</span>
+					<span>Trạng thái</span>
 					<select
 						class="select"
 						bind:value={fields.status}
@@ -119,15 +119,15 @@
 						disabled={loading}
 					>
 						<option value=""></option>
-						<option value="active">Active</option>
-						<option value="inactive">In-Active</option>
+						<option value="active">Đang hoạt động</option>
+						<option value="inactive">Ngừng hoạt động</option>
 					</select>
 				</label>
 			</div>
 
 			<div class="mb-4">
 				<label class="label">
-					<span>Description</span>
+					<span>Mô tả</span>
 					<textarea
 						class="textarea"
 						rows="4"
@@ -143,14 +143,14 @@
 				<button
 					type="button"
 					onclick={() => goto('/cycles')}
-					class="btn variant-filled-error text-white"
-					disabled={loading}>Cancel</button
+					class="variant-filled-error btn text-white"
+					disabled={loading}>Hủy</button
 				>
 				<div class="flex-1"></div>
 				<button
 					type="submit"
-					class="btn variant-filled-primary mr-2 text-white"
-					disabled={loading}>Submit</button
+					class="variant-filled-primary btn mr-2 text-white"
+					disabled={loading}>Lưu</button
 				>
 			</div>
 		</form>

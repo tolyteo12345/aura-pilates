@@ -33,7 +33,7 @@
 			memberBranchIds = ids;
 		} catch (err) {
 			toastStore.trigger({
-				message: err.message ?? 'Failed to load branches.',
+				message: err.message ?? 'Không thể tải danh sách chi nhánh.',
 				background: 'variant-filled-error'
 			});
 		} finally {
@@ -45,18 +45,18 @@
 </script>
 
 <svelte:head>
-	<title>Branches - LaraGym Member</title>
+	<title>Chi nhánh - Aura Studio</title>
 </svelte:head>
 
 <div class="px-4 pb-4 pt-6">
-	<h1 class="mb-6 text-2xl font-bold text-white">Gym Branches</h1>
+	<h1 class="mb-6 text-3xl font-semibold text-primary">Chi nhánh studio</h1>
 
 	{#if loading}
 		<SkeletonLoader type="card" count={4} class="mb-3" />
 	{:else if branches.length === 0}
-		<div class="card rounded-2xl border border-surface-700 bg-surface-800 p-8 text-center">
-			<p class="font-semibold text-surface-200">No branches found</p>
-			<p class="mt-1 text-sm text-surface-400">Please check back later.</p>
+		<div class="card rounded-2xl border border-secondary/60 bg-surface p-8 text-center">
+			<p class="font-semibold text-primary">Không tìm thấy chi nhánh nào</p>
+			<p class="mt-1 text-sm text-muted">Vui lòng quay lại sau.</p>
 		</div>
 	{:else}
 		<div class="flex flex-col gap-3">
@@ -64,21 +64,21 @@
 				{@const mine = isMemberBranch(branch)}
 				<div
 					class="card rounded-2xl p-4 {mine
-						? 'border border-primary-500 bg-surface-800'
-						: 'border border-surface-700 bg-surface-800'}"
+						? 'border border-primary bg-surface'
+						: 'border border-secondary/60 bg-surface'}"
 				>
 					<div class="flex items-start gap-3">
 						<!-- Icon -->
 						<div
 							class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full {mine
-								? 'bg-primary-500/20'
-								: 'bg-surface-700'}"
+								? 'bg-secondary'
+								: 'bg-secondary/40'}"
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								viewBox="0 0 20 20"
 								fill="currentColor"
-								class="h-5 w-5 {mine ? 'text-primary-400' : 'text-surface-400'}"
+								class="h-5 w-5 {mine ? 'text-primary' : 'text-muted'}"
 							>
 								<path
 									fill-rule="evenodd"
@@ -90,18 +90,18 @@
 
 						<div class="flex-1">
 							<div class="flex items-center gap-2">
-								<h3 class="font-semibold text-white">{branch.name}</h3>
+								<h3 class="font-semibold text-primary">{branch.name}</h3>
 								{#if mine}
-									<span class="badge variant-filled-primary text-xs">Your Branch</span>
+									<span class="badge variant-filled-primary text-xs">Chi nhánh của bạn</span>
 								{/if}
 							</div>
 
 							{#if branch.address}
-								<p class="mt-1 text-sm text-surface-300">{branch.address}</p>
+								<p class="mt-1 text-sm text-muted">{branch.address}</p>
 							{/if}
 
 							{#if branch.city || branch.state}
-								<p class="text-sm text-surface-400">
+								<p class="text-sm text-muted">
 									{[branch.city, branch.state].filter(Boolean).join(', ')}
 								</p>
 							{/if}
@@ -109,7 +109,7 @@
 							{#if branch.phone}
 								<a
 									href="tel:{branch.phone}"
-									class="mt-1 block text-sm text-primary-400 hover:text-primary-300"
+									class="mt-1 block text-sm text-primary-hover underline-offset-4 hover:text-primary hover:underline"
 								>
 									{branch.phone}
 								</a>
@@ -118,7 +118,7 @@
 							{#if branch.email}
 								<a
 									href="mailto:{branch.email}"
-									class="block text-sm text-primary-400 hover:text-primary-300"
+									class="block text-sm text-primary-hover underline-offset-4 hover:text-primary hover:underline"
 								>
 									{branch.email}
 								</a>

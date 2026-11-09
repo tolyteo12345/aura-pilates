@@ -8,6 +8,6 @@
 
 <style lang="postcss">
 	.modal {
-		@apply mx-4 flex w-full flex-col rounded bg-white shadow-lg lg:mx-0;
+		@apply mx-4 flex w-full flex-col bg-surface shadow-lg rounded-container-token lg:mx-0;
 	}
 </style>

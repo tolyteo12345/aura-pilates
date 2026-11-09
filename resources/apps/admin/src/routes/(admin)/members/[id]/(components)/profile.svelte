@@ -40,7 +40,7 @@
 		})
 			.then(() => {
 				toast.trigger({
-					message: 'Successfully updated',
+					message: 'Đã cập nhật thành công',
 					background: 'variant-filled-success'
 				});
 			})
@@ -74,7 +74,7 @@
 	};
 </script>
 
-<h3 class="h3 mb-4">Member Profile</h3>
+<h3 class="h3 mb-4">Hồ sơ hội viên</h3>
 
 <!-- Responsive Container (recommended) -->
 <form action="" onsubmit={prevent(onSubmit)}>
@@ -89,13 +89,13 @@
 			name="files"
 			button="btn btn-sm variant-soft-primary"
 			accept="image/*"
-			onchange={onChangeFile}>Change Avatar</FileButton
+			onchange={onChangeFile}>Đổi ảnh đại diện</FileButton
 		>
 	</div>
 
 	<div class="mb-4">
 		<label class="label">
-			<span>Name</span>
+			<span>Tên</span>
 			<input
 				class="input"
 				bind:value={fields.name}
@@ -121,19 +121,19 @@
 			/>
 		</label>
 		<label class="label flex-1">
-			<span>Status</span>
+			<span>Trạng thái</span>
 			<select class="select" bind:value={fields.status} name="status" disabled={loading}>
 				<option value=""></option>
-				<option value="active">Active</option>
-				<option value="inactive">In-Active</option>
-				<option value="suspended">Suspended</option>
+				<option value="active">Đang hoạt động</option>
+				<option value="inactive">Ngừng hoạt động</option>
+				<option value="suspended">Tạm ngưng</option>
 			</select>
 		</label>
 	</div>
 
 	<div class="mb-4">
 		<label class="label">
-			<span>Contact Number</span>
+			<span>Số điện thoại</span>
 			<input
 				class="input"
 				bind:value={fields.contact_number}
@@ -147,7 +147,7 @@
 
 	<div class="mb-4">
 		<label class="label">
-			<span>Address</span>
+			<span>Địa chỉ</span>
 			<input
 				class="input"
 				bind:value={fields.address}
@@ -161,7 +161,7 @@
 
 	<div class="mb-4 flex flex-row gap-4">
 		<label class="label flex-1">
-			<span>City</span>
+			<span>Thành phố</span>
 			<input
 				class="input"
 				bind:value={fields.city}
@@ -172,7 +172,7 @@
 			/>
 		</label>
 		<label class="label flex-1">
-			<span>State</span>
+			<span>Tỉnh/Bang</span>
 			<input
 				class="input"
 				bind:value={fields.state}
@@ -187,11 +187,11 @@
 	<div class="mb-4 flex flex-row gap-4">
 		<!-- svelte-ignore a11y_label_has_associated_control -->
 		<label class="label flex-1">
-			<span>Country</span>
+			<span>Quốc gia</span>
 			<CountrySelect bind:value={fields.country} />
 		</label>
 		<label class="label flex-1">
-			<span>Postcode</span>
+			<span>Mã bưu chính</span>
 			<input
 				class="input"
 				bind:value={fields.postcode}
@@ -204,16 +204,16 @@
 	</div>
 
 	<SlideToggle name="slider-label" bind:checked={fields.newsletter}
-		>Subscribe to Newsletter</SlideToggle
+		>Đăng ký nhận bản tin</SlideToggle
 	>
 
 	<div class="flex pt-8">
-		<button type="reset" class="btn variant-filled-error text-white" disabled={loading}
-			>Reset</button
+		<button type="reset" class="variant-filled-error btn text-white" disabled={loading}
+			>Đặt lại</button
 		>
 		<div class="flex-1"></div>
-		<button type="submit" class="btn variant-filled-primary mr-2 text-white" disabled={loading}
-			>Submit</button
+		<button type="submit" class="variant-filled-primary btn mr-2 text-white" disabled={loading}
+			>Lưu</button
 		>
 	</div>
 </form>

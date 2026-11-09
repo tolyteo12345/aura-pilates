@@ -16,7 +16,7 @@
 		Authorization: getBearerToken()
 	});
 
-	const title = 'Edit Subscription';
+	const title = 'Sửa gói đăng ký';
 
 	let loading = $state(false);
 
@@ -37,7 +37,7 @@
 		})
 			.then(() => {
 				toast.trigger({
-					message: 'Successfully updated',
+					message: 'Đã cập nhật thành công',
 					background: 'variant-filled-success'
 				});
 			})
@@ -81,8 +81,8 @@
 	<title>{title}</title>
 </svelte:head>
 
-<div class="lg:max-w-1200 p-4 lg:p-6">
-	<div class="card bg-white p-4 lg:p-6">
+<div class="p-4 lg:max-w-1200 lg:p-6">
+	<div class="card bg-surface p-4 lg:p-6">
 		<header class="card-header mb-6 flex items-center">
 			<h3 class="h3">{title}</h3>
 			<div class="flex-1"></div>
@@ -92,7 +92,7 @@
 			<div class="mb-4">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
-					<span>User</span>
+					<span>Hội viên</span>
 					<UserSelect bind:value={fields.user} />
 				</label>
 			</div>
@@ -100,14 +100,14 @@
 			<div class="mb-4">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
-					<span>Package</span>
+					<span>Gói tập</span>
 					<PackageSelect bind:value={fields.package} />
 				</label>
 			</div>
 
 			<div class="mb-4">
 				<label class="label">
-					<span>Interval</span>
+					<span>Số chu kỳ</span>
 					<input
 						class="input"
 						bind:value={fields.interval}
@@ -121,7 +121,7 @@
 
 			<div class="mb-4">
 				<label class="label">
-					<span>Status</span>
+					<span>Trạng thái</span>
 					<select
 						class="select"
 						bind:value={fields.status}
@@ -130,9 +130,9 @@
 						disabled={loading}
 					>
 						<option value=""></option>
-						<option value="active">Active</option>
-						<option value="inactive">In-Active</option>
-						<option value="suspended">Suspended</option>
+						<option value="active">Đang hoạt động</option>
+						<option value="inactive">Ngừng hoạt động</option>
+						<option value="suspended">Tạm ngưng</option>
 					</select>
 				</label>
 			</div>
@@ -141,14 +141,14 @@
 				<button
 					type="button"
 					onclick={() => goto('/subscriptions')}
-					class="btn variant-filled-error text-white"
-					disabled={loading}>Cancel</button
+					class="variant-filled-error btn text-white"
+					disabled={loading}>Hủy</button
 				>
 				<div class="flex-1"></div>
 				<button
 					type="submit"
-					class="btn variant-filled-primary mr-2 text-white"
-					disabled={loading}>Submit</button
+					class="variant-filled-primary btn mr-2 text-white"
+					disabled={loading}>Lưu</button
 				>
 			</div>
 		</form>

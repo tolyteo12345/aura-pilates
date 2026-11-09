@@ -9,7 +9,7 @@
 
 	const store = getActivitiesStoreContext();
 
-	const title = 'System Activities';
+	const title = 'Nhật ký hoạt động hệ thống';
 
 	const onAmountChanged = (event) => {
 		store.perPage = event.detail;
@@ -40,7 +40,7 @@
 </svelte:head>
 
 <div class="p-4 lg:p-6">
-	<div class="card bg-white p-4 lg:p-6">
+	<div class="card bg-surface p-4 lg:p-6">
 		<header class="card-header mb-6 flex items-center">
 			<h3 class="h3">{title}</h3>
 			<div class="flex-1"></div>
@@ -48,13 +48,13 @@
 		<!-- Responsive Container (recommended) -->
 		<div class="table-container">
 			<!-- Native Table Element -->
-			<table class="table-hover table bg-white">
+			<table class="table table-hover bg-surface">
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>Member</th>
-						<th>Description</th>
-						<th>Date</th>
+						<th>Hội viên</th>
+						<th>Mô tả</th>
+						<th>Ngày</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -93,6 +93,12 @@
 				<Paginator
 					bind:settings={paginationSettings}
 					showNumerals
+					amountText="mục"
+					separatorText="trên"
+					labelFirst="Trang đầu"
+					labelPrevious="Trang trước"
+					labelNext="Trang sau"
+					labelLast="Trang cuối"
 					maxNumerals={1}
 					on:amount={onAmountChanged}
 					on:page={onPageChanged}

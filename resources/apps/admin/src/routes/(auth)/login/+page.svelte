@@ -18,14 +18,14 @@
 			.post('/login', fields)
 			.then(() => {
 				toast.trigger({
-					message: 'You have successfully logged in. Redirecting...',
+					message: 'Bạn đã đăng nhập thành công. Đang chuyển hướng...',
 					background: 'variant-filled-success'
 				});
 				setTimeout(() => (window.location.href = '/'), 1500);
 			})
 			.catch((error) => {
 				toast.trigger({
-					message: 'Unable to logged you in',
+					message: 'Không thể đăng nhập. Vui lòng thử lại.',
 					background: 'variant-filled-error'
 				});
 			})
@@ -36,8 +36,8 @@
 </script>
 
 <div class="mb-6">
-	<h3 class="h3">Account Login</h3>
-	<p>Please login to get started</p>
+	<h3 class="h3">Đăng nhập tài khoản</h3>
+	<p>Vui lòng đăng nhập để bắt đầu</p>
 </div>
 
 <form action="" onsubmit={onSubmit}>
@@ -58,7 +58,7 @@
 
 	<div class="mb-6">
 		<label class="label">
-			<span>Password</span>
+			<span>Mật khẩu</span>
 			<input
 				class="input"
 				bind:value={fields.password}
@@ -73,7 +73,7 @@
 	<button
 		type="submit"
 		disabled={loading}
-		class="variant-filled-primary btn w-full font-bold text-white">Login</button
+		class="variant-filled-primary btn w-full font-bold text-white">Đăng nhập</button
 	>
-	<a href="/forgot" class="block pt-2 text-center">Forgot password </a>
+	<a href="/forgot" class="block pt-2 text-center">Quên mật khẩu</a>
 </form>

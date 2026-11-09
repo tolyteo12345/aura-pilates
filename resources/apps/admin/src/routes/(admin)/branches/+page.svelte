@@ -11,10 +11,10 @@
 
 	const store = getBranchStoreContext();
 
-	const title = 'Manage Branches';
+	const title = 'Quản lý chi nhánh';
 
 	const onDelete = (id) => {
-		const confirm = window.confirm('are you sure you wanna delete this item?');
+		const confirm = window.confirm('Bạn có chắc chắn muốn xóa mục này?');
 		if (confirm) store.deleteBranch(id);
 	};
 
@@ -51,7 +51,7 @@
 </svelte:head>
 
 <div class="p-4 lg:p-6">
-	<div class="card bg-white p-4 lg:p-6">
+	<div class="card bg-surface p-4 lg:p-6">
 		<header class="card-header mb-6 flex items-center">
 			<h3 class="h3">{title}</h3>
 			<div class="flex-1"></div>
@@ -60,19 +60,19 @@
 				class="variant-filled-primary btn text-white"
 				onclick={() => goto('/branches/new')}
 			>
-				Add Item
+				Thêm mới
 			</button>
 		</header>
 		<!-- Responsive Container (recommended) -->
 		<div class="table-container">
 			<!-- Native Table Element -->
-			<table class="table-hover table bg-white">
+			<table class="table table-hover bg-surface">
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>Name</th>
-						<th>Status</th>
-						<th>Action</th>
+						<th>Tên</th>
+						<th>Trạng thái</th>
+						<th>Thao tác</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -110,8 +110,8 @@
 				</tbody>
 				<tfoot>
 					<tr>
-						<th colspan="3" class="bg-white">Results Found {store.totalItems}</th>
-						<td class="bg-white"></td>
+						<th colspan="3" class="bg-surface">Tìm thấy {store.totalItems}</th>
+						<td class="bg-surface"></td>
 					</tr>
 				</tfoot>
 			</table>
@@ -119,6 +119,12 @@
 				<Paginator
 					bind:settings={paginationSettings}
 					showNumerals
+					amountText="mục"
+					separatorText="trên"
+					labelFirst="Trang đầu"
+					labelPrevious="Trang trước"
+					labelNext="Trang sau"
+					labelLast="Trang cuối"
 					maxNumerals={1}
 					on:amount={onAmountChanged}
 					on:page={onPageChanged}

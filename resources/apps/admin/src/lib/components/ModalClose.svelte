@@ -18,6 +18,6 @@
 	.modal-close {
 		width: 25px;
 		height: 25px;
-		@apply text-black;
+		@apply text-primary;
 	}
 </style>

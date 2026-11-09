@@ -53,22 +53,22 @@
 	});
 </script>
 
-<div class="card flex-1 flex-col bg-white shadow-lg lg:flex-row">
+<div class="card flex-1 flex-col bg-surface shadow-lg lg:flex-row">
 	<div class="card-header border-b p-4">
-		<div class="flex-1 font-bold">Latest Attendance</div>
+		<div class="flex-1 font-bold">Điểm danh gần đây</div>
 	</div>
 	<div class="card-body p-4">
 		<!-- Responsive Container (recommended) -->
 		{#if total}
 			<div class="table-container">
 				<!-- Native Table Element -->
-				<table class="table-hover table bg-white">
+				<table class="table table-hover bg-surface">
 					<thead>
 						<tr>
 							<th>ID</th>
-							<th>Member</th>
-							<th>Description</th>
-							<th>Date</th>
+							<th>Hội viên</th>
+							<th>Mô tả</th>
+							<th>Ngày</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -107,7 +107,9 @@
 				</table>
 			</div>
 		{:else}
-			<div class="w-full border bg-gray-100 p-6 text-center font-bold">No items found</div>
+			<div class="w-full border bg-background p-6 text-center font-bold">
+				Không có dữ liệu
+			</div>
 		{/if}
 	</div>
 </div>

@@ -10,7 +10,10 @@
 	import './../app.pcss';
 
 	import { initializeStores, Toast, Modal } from '@skeletonlabs/skeleton';
+	import moment from 'moment';
+	import 'moment/dist/locale/vi';
 
+	moment.locale('vi');
 	initializeStores();
 
 	createDashboardStoreContext();
@@ -23,6 +26,6 @@
 </script>
 
 <Toast />
-<Modal />
+<Modal buttonTextCancel="Hủy" buttonTextConfirm="Xác nhận" buttonTextSubmit="Gửi" />
 
 {@render children()}

@@ -20,7 +20,7 @@
 
 	const toast = useToast();
 
-	const title = 'Member Settings';
+	const title = 'Cài đặt hội viên';
 
 	let loading = $state(false);
 
@@ -58,7 +58,7 @@
 </svelte:head>
 
 <div class="px-6 py-6">
-	<div class="card flex min-h-screen flex-row items-stretch rounded-lg bg-white shadow-md">
+	<div class="card flex min-h-screen flex-row items-stretch rounded-lg bg-surface shadow-md">
 		<div class="user-sidebar">
 			<div class="justify-cente flex items-center justify-center py-8">
 				<Avatar
@@ -74,35 +74,35 @@
 						<a
 							class={active === 'profile' ? 'active' : ''}
 							onclick={onNavItemClicked('profile')}
-							href="/">Profile</a
+							href="/">Hồ sơ</a
 						>
 					</li>
 					<li>
 						<a
 							class={active === 'subscriptions' ? 'active' : ''}
 							onclick={onNavItemClicked('subscriptions')}
-							href="/">Subscriptions</a
+							href="/">Gói đăng ký</a
 						>
 					</li>
 					<li>
 						<a
 							class={active === 'branches' ? 'active' : ''}
 							onclick={onNavItemClicked('branches')}
-							href="/">Branches</a
+							href="/">Chi nhánh</a
 						>
 					</li>
 					<li>
 						<a
 							class={active === 'activities' ? 'active' : ''}
 							onclick={onNavItemClicked('activities')}
-							href="/">Activities</a
+							href="/">Nhật ký hoạt động</a
 						>
 					</li>
 					<li>
 						<a
 							class={active === 'security' ? 'active' : ''}
 							onclick={onNavItemClicked('security')}
-							href="/">Security and Privacy</a
+							href="/">Bảo mật và quyền riêng tư</a
 						>
 					</li>
 				</ul>
@@ -138,11 +138,11 @@
 	}
 
 	.user-nav a {
-		@apply text-gray-800;
+		@apply text-primary;
 	}
 
 	.user-nav a.active {
-		@apply bg-blue-950 text-white;
+		@apply bg-primary text-white;
 	}
 
 	.user-nav a:hover {

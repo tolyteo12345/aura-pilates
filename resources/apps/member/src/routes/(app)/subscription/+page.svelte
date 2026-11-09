@@ -20,8 +20,17 @@
 			case 'pending':
 				return 'badge variant-filled-warning';
 			default:
-				return 'badge variant-filled-surface';
+				return 'badge variant-soft-primary';
 		}
+	};
+
+	// Display labels only; status values from the API stay in English
+	const statusLabels = {
+		active: 'Đang hoạt động',
+		expired: 'Hết hạn',
+		pending: 'Chờ xử lý',
+		inactive: 'Ngừng hoạt động',
+		suspended: 'Tạm ngưng'
 	};
 
 	onMount(async () => {
@@ -30,7 +39,7 @@
 			subscriptions = Array.isArray(data) ? data : (data.data ?? []);
 		} catch (err) {
 			toastStore.trigger({
-				message: err.message ?? 'Failed to load subscriptions.',
+				message: err.message ?? 'Không thể tải danh sách gói đăng ký.',
 				background: 'variant-filled-error'
 			});
 		} finally {
@@ -47,52 +56,54 @@
 </script>
 
 <svelte:head>
-	<title>Subscriptions - LaraGym Member</title>
+	<title>Gói đăng ký - Aura Studio</title>
 </svelte:head>
 
 <div class="px-4 pb-4 pt-6">
-	<h1 class="mb-6 text-2xl font-bold text-white">Subscriptions</h1>
+	<h1 class="mb-6 text-3xl font-semibold text-primary">Gói đăng ký</h1>
 
 	<!-- Current active subscription (highlighted) -->
 	<section class="mb-6">
-		<h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-surface-400">
-			Active Plan
+		<h2 class="mb-3 font-body text-sm font-semibold uppercase tracking-wide text-muted">
+			Gói đang hoạt động
 		</h2>
 
 		{#if loading}
 			<SkeletonLoader type="card" />
 		{:else if active}
-			<div class="card rounded-2xl bg-gradient-to-br from-primary-700 to-primary-900 p-5 shadow-lg">
+			<div class="card rounded-2xl bg-primary p-5 shadow-sm">
 				<div class="mb-4 flex items-start justify-between">
 					<div>
-						<p class="text-xs text-primary-200">Package</p>
+						<p class="text-xs text-secondary">Gói tập</p>
 						<p class="text-xl font-bold text-white">
-							{active.package?.name ?? active.package_name ?? 'Membership'}
+							{active.package?.name ?? active.package_name ?? 'Gói hội viên'}
 						</p>
 					</div>
-					<span class={getStatusClass(active.status)}>{active.status}</span>
+					<span class={getStatusClass(active.status)}
+						>{statusLabels[active.status?.toLowerCase()] ?? active.status}</span
+					>
 				</div>
 
 				<div class="grid grid-cols-2 gap-4">
 					{#if active.starts_at}
 						<div>
-							<p class="text-xs text-primary-200">Start Date</p>
+							<p class="text-xs text-secondary">Ngày bắt đầu</p>
 							<p class="text-sm font-medium text-white">
-								{moment(active.starts_at).format('MMM D, YYYY')}
+								{moment(active.starts_at).format('L')}
 							</p>
 						</div>
 					{/if}
 					{#if active.expires_at}
 						<div>
-							<p class="text-xs text-primary-200">Expiry Date</p>
+							<p class="text-xs text-secondary">Ngày hết hạn</p>
 							<p class="text-sm font-medium text-white">
-								{moment(active.expires_at).format('MMM D, YYYY')}
+								{moment(active.expires_at).format('L')}
 							</p>
 						</div>
 					{/if}
 					{#if active.price !== undefined}
 						<div>
-							<p class="text-xs text-primary-200">Price</p>
+							<p class="text-xs text-secondary">Giá</p>
 							<p class="text-sm font-medium text-white">
 								{active.price}
 							</p>
@@ -100,7 +111,7 @@
 					{/if}
 					{#if active.branch}
 						<div>
-							<p class="text-xs text-primary-200">Branch</p>
+							<p class="text-xs text-secondary">Chi nhánh</p>
 							<p class="text-sm font-medium text-white">
 								{active.branch?.name ?? active.branch}
 							</p>
@@ -109,47 +120,49 @@
 				</div>
 			</div>
 		{:else}
-			<div class="card rounded-2xl border border-surface-700 bg-surface-800 p-6 text-center">
-				<p class="font-semibold text-surface-200">No Active Subscription</p>
-				<p class="mt-1 text-sm text-surface-400">Contact your gym to get a membership plan.</p>
+			<div class="card rounded-2xl border border-secondary/60 bg-surface p-6 text-center">
+				<p class="font-semibold text-primary">Chưa có gói đăng ký đang hoạt động</p>
+				<p class="mt-1 text-sm text-muted">Vui lòng liên hệ studio để đăng ký gói hội viên.</p>
 			</div>
 		{/if}
 	</section>
 
 	<!-- History -->
 	<section>
-		<h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-surface-400">
-			History
+		<h2 class="mb-3 font-body text-sm font-semibold uppercase tracking-wide text-muted">
+			Lịch sử
 		</h2>
 
 		{#if loading}
 			<SkeletonLoader type="card" count={3} />
 		{:else if history.length === 0}
-			<div class="card rounded-2xl border border-surface-700 bg-surface-800 p-6 text-center">
-				<p class="text-surface-400">No subscription history yet.</p>
+			<div class="card rounded-2xl border border-secondary/60 bg-surface p-6 text-center">
+				<p class="text-muted">Chưa có lịch sử gói đăng ký.</p>
 			</div>
 		{:else}
 			<div class="flex flex-col gap-3">
 				{#each history as sub}
-					<div class="card rounded-2xl bg-surface-800 p-4">
+					<div class="card rounded-2xl border border-secondary/60 bg-surface p-4">
 						<div class="flex items-start justify-between">
 							<div>
-								<p class="font-semibold text-white">
-									{sub.package?.name ?? sub.package_name ?? 'Membership'}
+								<p class="font-semibold text-primary">
+									{sub.package?.name ?? sub.package_name ?? 'Gói hội viên'}
 								</p>
-								<p class="mt-1 text-xs text-surface-400">
+								<p class="mt-1 text-xs text-muted">
 									{#if sub.starts_at}
-										{moment(sub.starts_at).format('MMM D, YYYY')}
+										{moment(sub.starts_at).format('L')}
 									{/if}
 									{#if sub.starts_at && sub.expires_at}
 										&nbsp;→&nbsp;
 									{/if}
 									{#if sub.expires_at}
-										{moment(sub.expires_at).format('MMM D, YYYY')}
+										{moment(sub.expires_at).format('L')}
 									{/if}
 								</p>
 							</div>
-							<span class={getStatusClass(sub.status)}>{sub.status}</span>
+							<span class={getStatusClass(sub.status)}
+							>{statusLabels[sub.status?.toLowerCase()] ?? sub.status}</span
+						>
 						</div>
 					</div>
 				{/each}

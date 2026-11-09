@@ -8,7 +8,7 @@
 </script>
 
 <Wrapper>
-	<div class="login from-blue-800 to-indigo-900 lg:bg-gradient-to-r">
+	<div class="login">
 		<div class="login-card">
 			<div class="mx-auto mb-8 flex justify-center">
 				<Logo />
@@ -20,11 +20,11 @@
 
 <style lang="postcss">
 	.login {
-		@apply fixed bottom-0 left-0 right-0 top-0 flex h-full w-full items-center justify-center overflow-y-auto bg-white;
+		@apply fixed bottom-0 left-0 right-0 top-0 flex h-full w-full items-center justify-center overflow-y-auto bg-background;
 	}
 
 	.login-card {
-		@apply mx-4 rounded-xl bg-white p-8 shadow-none lg:my-8 lg:shadow-lg;
+		@apply mx-4 border border-secondary/60 bg-surface p-8 shadow-none rounded-container-token lg:my-8 lg:shadow-sm;
 		width: 500px;
 		max-width: 100%;
 	}

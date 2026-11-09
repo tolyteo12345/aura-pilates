@@ -14,7 +14,19 @@ Aura Pilates — a studio/gym management system forked from **LaraGym**. Three a
 
 The root `package.json` / `vite.config.js` / `resources/js` are the unused Laravel default Vite setup — the frontends are the two SvelteKit apps, each with its own `package.json`.
 
-Branding in code still says "LaraGym" (`laragym_token`, PWA manifest, package names). Don't rename unless asked.
+The visible UI is branded **Aura Studio Pilates & Wellness** (see [docs/design-system.md](docs/design-system.md)); code identifiers still say "LaraGym" (`laragym_token`, package names). Don't rename identifiers unless asked.
+
+## Required workflow for new features
+
+These rules apply to every coding agent, including Codex and Claude, before implementing a new feature:
+
+1. **Inspect the existing source code first.** Before planning or editing, trace the relevant flow end to end across every affected layer, including routes, middleware/hooks, validation, controllers, models/schema, stores, API clients, shared utilities, configuration, pages, components and tests where they participate in the flow. Do not implement from the task description alone.
+2. **Find and follow existing patterns.** Identify the closest existing feature and reuse its architecture, naming, validation, state management, error handling and test structure. Prefer extending existing components and utilities over creating duplicates. If no reliable precedent exists or precedents conflict, report that before introducing a new pattern.
+3. **Make the inspection visible.** Before editing, briefly state which existing feature/pattern and key files were inspected. If relevant source code or a required instruction document cannot be found or read, stop and report the blocker instead of proceeding from assumptions.
+4. **Check repository instructions.** Read this file and every `AGENTS.md` or `CLAUDE.md` on the path from the repository root to each file being changed. More specific instructions may add constraints but must not weaken the source-inspection or frontend design-system requirements in this section unless the user explicitly directs otherwise.
+5. **For all frontend work, read [docs/design-system.md](docs/design-system.md) in full before planning or editing.** Treat it as a required specification for both `resources/apps/admin/` and `resources/apps/member/`, including behavior-only changes that render or modify UI.
+6. **Verify frontend compliance before finishing.** Compare the result against existing components and the design-system rules for layout, typography, semantic tokens, responsive behavior and accessibility. Run the checks listed below for every frontend app changed; report any check that fails or cannot run.
+7. **Keep changes scoped.** Do not refactor unrelated code while adding a feature. If the requested feature requires breaking an established pattern or a design-system rule, explain the conflict and get explicit approval before proceeding.
 
 ## Running things
 
@@ -41,8 +53,8 @@ docker compose exec app php artisan migrate --seed
 | API tests (PHPUnit, MySQL db `testing`) | `docker compose exec app ./vendor/bin/phpunit` |
 | Single test | `docker compose exec app ./vendor/bin/phpunit --filter BranchStoreTest` |
 | PHP style | `docker compose exec app ./vendor/bin/pint` (Laravel preset, no `pint.json`) |
-| Admin | `npm run check`, `npm run lint`, `npm run test:unit` (vitest), `npm run test:integration` (playwright) |
-| Member | `npm run check`, `npm run lint` (no test runner configured) |
+| Admin (from `resources/apps/admin/`) | `npm run check`, `npm run lint`, `npm run test:unit` (vitest), `npm run test:integration` (playwright) |
+| Member (from `resources/apps/member/`) | `npm run check`, `npm run lint` (no test runner configured) |
 
 - The `testing` database is created by `docker/mysql/init/01-create-testing-database.sql`, which only runs when `storage/mysql` is empty. On an existing data dir: `docker compose exec mysql mysql -uroot -e 'CREATE DATABASE IF NOT EXISTS testing'`.
 - Known pre-existing failure: `Tests\Feature\Branch\BranchIndexTest::test_not_admin` expects 403, but `GET /api/branches` was intentionally opened to all authenticated users (Milestone 1). Not caused by your change.
@@ -72,6 +84,21 @@ docker compose exec app php artisan migrate --seed
 - Plain `fetch` wrapper `apiFetch()` in `src/lib/api/client.js`; token in `localStorage` (`laragym_token`); auth state in `src/lib/stores/auth.js` (classic `writable`).
 - In dev Vite proxies `/api` to `http://localhost:8000`, so `VITE_API_BASE_URL` stays empty; set it only for production builds.
 - Route groups: `(auth)` for login/register/forgot/reset, `(app)` for authenticated screens with `BottomNav`.
+
+## UI & Aura Design System
+
+Both frontends share one design system: Skeleton theme `aura` + semantic Tailwind aliases, defined once in `resources/apps/aura-theme.cjs` and documented in [docs/design-system.md](docs/design-system.md).
+
+1. **For any frontend change, read [docs/design-system.md](docs/design-system.md) in full before planning or editing, as required by the feature workflow above.**
+2. Check existing components first (`src/lib/components/` in each app, Skeleton classes like `btn`, `card`, `input`, `badge`); reuse, don't duplicate.
+3. Use semantic Tailwind tokens (`bg-primary`, `bg-primary-hover`, `bg-secondary`, `bg-background`, `bg-surface`, `text-primary`, `text-muted`, Skeleton `variant-*`). No raw hex, no `*-blue-*` / `*-indigo-*` / `*-purple-*` / `*-gray-*` defaults; functional `success` / `warning` / `error` only for status.
+4. No per-page themes or extra `data-theme` values; `<body data-theme="aura">` is the only theme.
+5. Don't change the brand palette (`aura-theme.cjs`) without explicit approval.
+6. When asked for a visual/UI change only, don't touch business logic, API calls, auth, stores or routing.
+7. Don't restructure the repository or move apps/components as part of UI work.
+8. Every new page must follow the Aura Design System (layout, typography, tokens, accessibility rules in the doc).
+9. Follow the rest of this file and any instruction files in sub-directories as well.
+10. If these rules conflict with each other, a task or a technical constraint, report the concrete conflict and get explicit approval before violating a design-system rule. The user's explicit instruction takes precedence.
 
 ## Working rules
 

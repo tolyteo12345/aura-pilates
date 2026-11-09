@@ -18,7 +18,7 @@
 			await forgotPassword({ email });
 			success = true;
 		} catch (err) {
-			error = err.message ?? 'Unable to send reset email. Please try again.';
+			error = err.message ?? 'Không thể gửi email đặt lại mật khẩu. Vui lòng thử lại.';
 		} finally {
 			loading = false;
 		}
@@ -26,23 +26,23 @@
 </script>
 
 <svelte:head>
-	<title>Forgot Password - LaraGym Member</title>
+	<title>Quên mật khẩu - Aura Studio</title>
 </svelte:head>
 
-<h2 class="mb-1 text-xl font-bold text-white">Forgot Password</h2>
-<p class="mb-6 text-sm text-surface-300">
-	Enter your email and we'll send you a link to reset your password.
+<h2 class="mb-1 text-2xl font-semibold text-primary">Quên mật khẩu</h2>
+<p class="mb-6 text-sm text-muted">
+	Nhập email của bạn, chúng tôi sẽ gửi liên kết để đặt lại mật khẩu.
 </p>
 
 {#if success}
 	<div class="alert variant-filled-success rounded-lg p-4 text-sm">
-		<p class="font-semibold">Check your inbox!</p>
-		<p class="mt-1 text-surface-100">
-			If an account exists for <strong>{email}</strong>, you'll receive a password reset link
-			shortly.
+		<p class="font-semibold">Vui lòng kiểm tra hộp thư!</p>
+		<p class="mt-1">
+			Nếu tồn tại tài khoản với email <strong>{email}</strong>, bạn sẽ sớm nhận được liên kết
+			đặt lại mật khẩu.
 		</p>
 	</div>
-	<a href="/login" class="btn variant-soft mt-4 w-full rounded-lg"> Back to Sign In </a>
+	<a href="/login" class="btn variant-soft mt-4 w-full"> Quay lại đăng nhập </a>
 {:else}
 	{#if error}
 		<div class="alert variant-filled-error mb-4 rounded-lg p-3 text-sm">
@@ -52,9 +52,9 @@
 
 	<form onsubmit={onSubmit} class="flex flex-col gap-4">
 		<label class="label">
-			<span class="text-sm text-surface-200">Email</span>
+			<span class="text-sm text-primary">Email</span>
 			<input
-				class="input mt-1 rounded-lg"
+				class="input mt-1"
 				type="email"
 				name="email"
 				bind:value={email}
@@ -68,7 +68,7 @@
 		<button
 			type="submit"
 			disabled={loading}
-			class="btn variant-filled-primary w-full rounded-lg font-semibold"
+			class="btn variant-filled-primary w-full font-semibold"
 		>
 			{#if loading}
 				<svg class="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
@@ -82,14 +82,14 @@
 					/>
 					<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
 				</svg>
-				Sending...
+				Đang gửi...
 			{:else}
-				Send Reset Link
+				Gửi liên kết đặt lại
 			{/if}
 		</button>
 	</form>
 
-	<a href="/login" class="mt-4 block text-center text-sm text-primary-400 hover:text-primary-300">
-		Back to Sign In
+	<a href="/login" class="mt-4 block text-center text-sm text-primary-hover underline-offset-4 hover:text-primary hover:underline">
+		Quay lại đăng nhập
 	</a>
 {/if}

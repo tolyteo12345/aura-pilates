@@ -3,17 +3,19 @@ import { defineConfig } from 'vite';
 import { VitePWA } from 'vite-plugin-pwa';
 
 export default defineConfig({
+	// Bundle moment for SSR too, so 'moment/dist/locale/vi' (ESM) registers on the same instance
+	ssr: { noExternal: ['moment'] },
 	plugins: [
 		sveltekit(),
 		VitePWA({
 			registerType: 'autoUpdate',
-			includeAssets: ['favicon.png', 'icons/*.png'],
+			includeAssets: ['favicon.png', 'logo.png', 'icons/*.png'],
 			manifest: {
-				name: 'LaraGym Member',
-				short_name: 'LaraGym',
-				description: 'LaraGym Member Portal - manage your gym membership, attendance and profile',
-				theme_color: '#1a1a2e',
-				background_color: '#1a1a2e',
+				name: 'Aura Studio Member',
+				short_name: 'Aura',
+				description: 'Cổng hội viên Aura Studio Pilates & Wellness - quản lý gói tập, điểm danh và hồ sơ của bạn',
+				theme_color: '#F5F0E8',
+				background_color: '#F5F0E8',
 				display: 'standalone',
 				start_url: '/',
 				scope: '/',

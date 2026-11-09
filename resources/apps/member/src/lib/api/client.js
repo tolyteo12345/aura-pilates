@@ -49,7 +49,7 @@ export const apiFetch = async (path, options = {}) => {
 	});
 
 	if (!response.ok) {
-		let message = `Request failed with status ${response.status}`;
+		let message = `Yêu cầu thất bại (mã lỗi ${response.status})`;
 		try {
 			const data = await response.json();
 			if (data && data.message) message = data.message;
@@ -98,7 +98,7 @@ export const apiUpload = (path, formData) => {
 		body: formData
 	}).then(async (response) => {
 		if (!response.ok) {
-			let message = `Request failed with status ${response.status}`;
+			let message = `Yêu cầu thất bại (mã lỗi ${response.status})`;
 			try {
 				const data = await response.json();
 				if (data && data.message) message = data.message;

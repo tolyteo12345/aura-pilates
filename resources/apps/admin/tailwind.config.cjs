@@ -4,6 +4,8 @@ import { join } from 'path';
 // 1. Import the Skeleton plugin
 import { skeleton } from '@skeletonlabs/tw-plugin';
 import forms from '@tailwindcss/forms';
+// Aura brand tokens shared with the member app — see docs/design-system.md
+import { auraTheme, auraExtend } from '../aura-theme.cjs';
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -16,6 +18,7 @@ export default {
 	],
 	theme: {
 		extend: {
+			...auraExtend,
 			width: {
 				1200: '75rem'
 			},
@@ -26,7 +29,7 @@ export default {
 	},
 	plugins: [
 		skeleton({
-			themes: { preset: ['skeleton', 'modern', 'crimson', 'wintry'] }
+			themes: { preset: ['skeleton', 'modern', 'crimson', 'wintry'], custom: [auraTheme] }
 		}),
 		forms
 	]

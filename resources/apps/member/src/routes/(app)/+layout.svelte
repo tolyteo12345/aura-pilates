@@ -17,7 +17,7 @@
 	});
 </script>
 
-<div class="flex min-h-screen flex-col bg-surface-900 text-white">
+<div class="flex min-h-screen flex-col bg-background text-primary">
 	<!-- Page content with bottom nav clearance -->
 	<main class="flex-1 overflow-y-auto with-bottom-nav">
 		{@render children()}

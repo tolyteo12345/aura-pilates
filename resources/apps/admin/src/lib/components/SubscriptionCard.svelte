@@ -9,7 +9,7 @@
 	let { item = {}, action = true, onEdit, onDelete } = $props();
 </script>
 
-<div class="card w-full bg-white shadow-lg">
+<div class="card w-full bg-surface shadow-lg">
 	<header class="subscription-title card-header">
 		{item.package.name}<br class="mb-0" />
 		<Status status={item.status} />
@@ -20,7 +20,7 @@
 				{#each item.package.services as item}
 					<li>{item.name}</li>
 				{:else}
-					<li>No service attached to this package.</li>
+					<li>Gói tập này chưa có dịch vụ nào.</li>
 				{/each}
 			{/if}
 		</ul>
@@ -29,7 +29,7 @@
 				<FaClock />
 			</span>
 			<div class="flex-1">
-				Valid Until: {moment(item.expires_at).format('LL')}
+				Hiệu lực đến: {moment(item.expires_at).format('LL')}
 			</div>
 		</div>
 		{#if item.status === 'suspended'}
@@ -38,7 +38,7 @@
 					<FaClock />
 				</span>
 				<div class="flex-1">
-					Suspended At: {moment(item.suspended_at).format('LL')}
+					Tạm ngưng lúc: {moment(item.suspended_at).format('LL')}
 				</div>
 			</div>
 		{/if}
@@ -46,14 +46,14 @@
 	{#if action}
 		<footer class="card-footer flex items-center border-t py-1.5">
 			<button type="button" class="btn-icon p-0" onclick={() => onEdit(item)}>
-				<span class="text-black-500 h-4 w-4">
+				<span class="h-4 w-4 text-primary">
 					<FaCog />
 				</span>
 			</button>
 			<div class="flex-1"></div>
 
 			<button type="button" class="btn-icon p-0" onclick={() => onDelete(item)}>
-				<span class="h-4 w-4 text-red-500">
+				<span class="h-4 w-4 text-error-500">
 					<FaTrash />
 				</span>
 			</button>
@@ -71,12 +71,12 @@
 	}
 
 	.subscription-expires {
-		@apply flex items-center gap-1 text-sm text-gray-600;
+		@apply flex items-center gap-1 text-sm text-muted;
 	}
 
 	.expire-icon {
 		width: 15px;
 		height: 15px;
-		@apply text-gray-800;
+		@apply text-primary;
 	}
 </style>

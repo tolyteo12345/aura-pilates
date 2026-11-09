@@ -18,13 +18,13 @@
 		</div>
 	</div>
 	<div class="stat-card-footer">
-		<a {href}>View All</a>
+		<a {href}>Xem tất cả</a>
 	</div>
 </div>
 
 <style lang="postcss">
 	.stat-card {
-		@apply flex w-full flex-col rounded-xl border shadow-xl;
+		@apply flex w-full flex-col border bg-surface shadow-sm rounded-container-token;
 	}
 
 	.stat-card-content {
@@ -36,11 +36,11 @@
 	}
 
 	.stat-card-icon {
-		@apply h-12 w-12 text-black;
+		@apply h-12 w-12 text-primary;
 	}
 
 	.stat-card-value {
-		@apply text-4xl font-bold;
+		@apply font-heading text-5xl font-semibold lining-nums;
 	}
 
 	.stat-card-title {
@@ -48,6 +48,6 @@
 	}
 
 	.stat-card-footer {
-		@apply border-t p-4 font-bold;
+		@apply border-t p-4 font-semibold;
 	}
 </style>

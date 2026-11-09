@@ -65,7 +65,7 @@
 			};
 		} catch (err) {
 			toastStore.trigger({
-				message: err.message ?? 'Failed to load profile.',
+				message: err.message ?? 'Không thể tải hồ sơ.',
 				background: 'variant-filled-error'
 			});
 		} finally {
@@ -82,12 +82,12 @@
 			user = data.data ?? data;
 			authStore.setUser(user);
 			toastStore.trigger({
-				message: 'Profile updated successfully.',
+				message: 'Đã cập nhật hồ sơ thành công.',
 				background: 'variant-filled-success'
 			});
 		} catch (err) {
 			toastStore.trigger({
-				message: err.message ?? 'Failed to update profile.',
+				message: err.message ?? 'Cập nhật hồ sơ thất bại.',
 				background: 'variant-filled-error'
 			});
 		} finally {
@@ -101,7 +101,7 @@
 
 		if (passwordFields.password !== passwordFields.password_confirmation) {
 			toastStore.trigger({
-				message: 'Passwords do not match.',
+				message: 'Mật khẩu xác nhận không khớp.',
 				background: 'variant-filled-error'
 			});
 			return;
@@ -112,12 +112,12 @@
 			await updatePassword(passwordFields);
 			passwordFields = { current_password: '', password: '', password_confirmation: '' };
 			toastStore.trigger({
-				message: 'Password updated successfully.',
+				message: 'Đã cập nhật mật khẩu thành công.',
 				background: 'variant-filled-success'
 			});
 		} catch (err) {
 			toastStore.trigger({
-				message: err.message ?? 'Failed to update password.',
+				message: err.message ?? 'Cập nhật mật khẩu thất bại.',
 				background: 'variant-filled-error'
 			});
 		} finally {
@@ -135,12 +135,12 @@
 			user = { ...user, ...(data.data ?? data) };
 			authStore.setUser(user);
 			toastStore.trigger({
-				message: 'Avatar updated.',
+				message: 'Đã cập nhật ảnh đại diện.',
 				background: 'variant-filled-success'
 			});
 		} catch (err) {
 			toastStore.trigger({
-				message: err.message ?? 'Failed to upload avatar.',
+				message: err.message ?? 'Tải ảnh đại diện lên thất bại.',
 				background: 'variant-filled-error'
 			});
 		} finally {
@@ -155,11 +155,11 @@
 </script>
 
 <svelte:head>
-	<title>Profile - LaraGym Member</title>
+	<title>Hồ sơ - Aura Studio</title>
 </svelte:head>
 
 <div class="px-4 pb-4 pt-6">
-	<h1 class="mb-6 text-2xl font-bold text-white">Profile</h1>
+	<h1 class="mb-6 text-3xl font-semibold text-primary">Hồ sơ</h1>
 
 	<!-- Avatar + basic info -->
 	{#if loading}
@@ -172,17 +172,17 @@
 				class="group relative mb-3"
 				onclick={() => fileInput?.click()}
 				disabled={uploadingAvatar}
-				aria-label="Change avatar"
+				aria-label="Đổi ảnh đại diện"
 			>
 				{#if user?.avatar}
 					<img
 						src={getAvatarUrl(user.avatar)}
 						alt={user.name}
-						class="h-20 w-20 rounded-full object-cover ring-2 ring-primary-500"
+						class="h-20 w-20 rounded-full object-cover ring-2 ring-secondary"
 					/>
 				{:else}
 					<div
-						class="flex h-20 w-20 items-center justify-center rounded-full bg-primary-600 text-2xl font-bold text-white ring-2 ring-primary-500"
+						class="flex h-20 w-20 items-center justify-center rounded-full bg-primary text-2xl font-bold text-white ring-2 ring-secondary"
 					>
 						{getInitials(user?.name)}
 					</div>
@@ -212,11 +212,11 @@
 				onchange={onAvatarChange}
 			/>
 
-			<h2 class="text-xl font-bold text-white">{user?.name}</h2>
-			<p class="text-sm text-surface-300">{user?.email}</p>
+			<h2 class="text-2xl font-semibold text-primary">{user?.name}</h2>
+			<p class="text-sm text-muted">{user?.email}</p>
 			{#if user?.account_number}
-				<p class="mt-1 rounded-full bg-surface-700 px-3 py-0.5 text-xs text-surface-300">
-					Account: {user.account_number}
+				<p class="mt-1 rounded-full bg-secondary/40 px-3 py-0.5 text-xs text-muted">
+					Tài khoản: {user.account_number}
 				</p>
 			{/if}
 		</div>
@@ -224,56 +224,56 @@
 
 	<!-- Profile edit form -->
 	<section class="mb-6">
-		<h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-surface-400">
-			Personal Details
+		<h2 class="mb-3 font-body text-sm font-semibold uppercase tracking-wide text-muted">
+			Thông tin cá nhân
 		</h2>
 
 		{#if loading}
 			<SkeletonLoader type="card" />
 		{:else}
-			<form onsubmit={onSaveProfile} class="card rounded-2xl bg-surface-800 p-4">
+			<form onsubmit={onSaveProfile} class="card rounded-2xl border border-secondary/60 bg-surface p-4">
 				<div class="flex flex-col gap-4">
 					<label class="label">
-						<span class="text-sm text-surface-200">Contact Number</span>
+						<span class="text-sm text-primary">Số điện thoại</span>
 						<input
-							class="input mt-1 rounded-lg"
+							class="input mt-1"
 							type="tel"
 							bind:value={profileFields.contact_number}
-							placeholder="+1 555 000 0000"
+							placeholder="0901 234 567"
 							disabled={saving}
 						/>
 					</label>
 
 					<label class="label">
-						<span class="text-sm text-surface-200">Address</span>
+						<span class="text-sm text-primary">Địa chỉ</span>
 						<input
-							class="input mt-1 rounded-lg"
+							class="input mt-1"
 							type="text"
 							bind:value={profileFields.address}
-							placeholder="123 Main Street"
+							placeholder="123 Đường Lê Lợi"
 							disabled={saving}
 						/>
 					</label>
 
 					<div class="grid grid-cols-2 gap-3">
 						<label class="label">
-							<span class="text-sm text-surface-200">City</span>
+							<span class="text-sm text-primary">Thành phố</span>
 							<input
-								class="input mt-1 rounded-lg"
+								class="input mt-1"
 								type="text"
 								bind:value={profileFields.city}
-								placeholder="City"
+								placeholder="Thành phố"
 								disabled={saving}
 							/>
 						</label>
 
 						<label class="label">
-							<span class="text-sm text-surface-200">State</span>
+							<span class="text-sm text-primary">Tỉnh</span>
 							<input
-								class="input mt-1 rounded-lg"
+								class="input mt-1"
 								type="text"
 								bind:value={profileFields.state}
-								placeholder="State"
+								placeholder="Tỉnh"
 								disabled={saving}
 							/>
 						</label>
@@ -281,20 +281,20 @@
 
 					<div class="grid grid-cols-2 gap-3">
 						<label class="label">
-							<span class="text-sm text-surface-200">Country</span>
+							<span class="text-sm text-primary">Quốc gia</span>
 							<input
-								class="input mt-1 rounded-lg"
+								class="input mt-1"
 								type="text"
 								bind:value={profileFields.country}
-								placeholder="Country"
+								placeholder="Quốc gia"
 								disabled={saving}
 							/>
 						</label>
 
 						<label class="label">
-							<span class="text-sm text-surface-200">Postcode</span>
+							<span class="text-sm text-primary">Mã bưu chính</span>
 							<input
-								class="input mt-1 rounded-lg"
+								class="input mt-1"
 								type="text"
 								bind:value={profileFields.postcode}
 								placeholder="00000"
@@ -306,16 +306,16 @@
 					<button
 						type="submit"
 						disabled={saving}
-						class="btn variant-filled-primary w-full rounded-lg font-semibold"
+						class="btn variant-filled-primary w-full font-semibold"
 					>
 						{#if saving}
 							<svg class="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
 								<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
 								<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
 							</svg>
-							Saving...
+							Đang lưu...
 						{:else}
-							Save Changes
+							Lưu thay đổi
 						{/if}
 					</button>
 				</div>
@@ -325,16 +325,16 @@
 
 	<!-- Change password -->
 	<section class="mb-6">
-		<h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-surface-400">
-			Change Password
+		<h2 class="mb-3 font-body text-sm font-semibold uppercase tracking-wide text-muted">
+			Đổi mật khẩu
 		</h2>
 
-		<form onsubmit={onSavePassword} class="card rounded-2xl bg-surface-800 p-4">
+		<form onsubmit={onSavePassword} class="card rounded-2xl border border-secondary/60 bg-surface p-4">
 			<div class="flex flex-col gap-4">
 				<label class="label">
-					<span class="text-sm text-surface-200">Current Password</span>
+					<span class="text-sm text-primary">Mật khẩu hiện tại</span>
 					<input
-						class="input mt-1 rounded-lg"
+						class="input mt-1"
 						type="password"
 						bind:value={passwordFields.current_password}
 						placeholder="••••••••"
@@ -345,9 +345,9 @@
 				</label>
 
 				<label class="label">
-					<span class="text-sm text-surface-200">New Password</span>
+					<span class="text-sm text-primary">Mật khẩu mới</span>
 					<input
-						class="input mt-1 rounded-lg"
+						class="input mt-1"
 						type="password"
 						bind:value={passwordFields.password}
 						placeholder="••••••••"
@@ -359,9 +359,9 @@
 				</label>
 
 				<label class="label">
-					<span class="text-sm text-surface-200">Confirm New Password</span>
+					<span class="text-sm text-primary">Xác nhận mật khẩu mới</span>
 					<input
-						class="input mt-1 rounded-lg"
+						class="input mt-1"
 						type="password"
 						bind:value={passwordFields.password_confirmation}
 						placeholder="••••••••"
@@ -375,16 +375,16 @@
 				<button
 					type="submit"
 					disabled={savingPassword}
-					class="btn variant-filled-secondary w-full rounded-lg font-semibold"
+					class="btn variant-filled-secondary w-full font-semibold"
 				>
 					{#if savingPassword}
 						<svg class="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
 							<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
 							<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
 						</svg>
-						Updating...
+						Đang cập nhật...
 					{:else}
-						Update Password
+						Cập nhật mật khẩu
 					{/if}
 				</button>
 			</div>
@@ -396,9 +396,9 @@
 		<button
 			type="button"
 			onclick={onLogout}
-			class="btn variant-filled-error w-full rounded-lg font-semibold"
+			class="btn variant-filled-error w-full font-semibold"
 		>
-			Sign Out
+			Đăng xuất
 		</button>
 	</section>
 </div>

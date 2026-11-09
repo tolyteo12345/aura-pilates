@@ -7,7 +7,7 @@
 	let { children } = $props();
 </script>
 
-<Drawer bgDrawer="bg-gray-800" rounded="rounded-none" width="300px">
+<Drawer bgDrawer="bg-primary" rounded="rounded-none" width="300px">
 	<Navigation />
 </Drawer>
 

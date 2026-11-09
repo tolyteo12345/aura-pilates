@@ -24,7 +24,7 @@
 		api.put(`/users/${user.id}`, fields)
 			.then(() => {
 				toast.trigger({
-					message: 'Successfully updated',
+					message: 'Đã cập nhật thành công',
 					background: 'variant-filled-success'
 				});
 			})
@@ -38,13 +38,13 @@
 	};
 </script>
 
-<h3 class="h3 mb-4">Security and Privacy</h3>
+<h3 class="h3 mb-4">Bảo mật và quyền riêng tư</h3>
 
 <!-- Responsive Container (recommended) -->
 <form action="" onsubmit={prevent(onSubmit)}>
 	<div class="mb-4">
 		<label class="label">
-			<span>Password</span>
+			<span>Mật khẩu</span>
 			<input
 				class="input"
 				bind:value={fields.password}
@@ -57,7 +57,7 @@
 
 	<div class="mb-4">
 		<label class="label">
-			<span>Password Confirmation</span>
+			<span>Xác nhận mật khẩu</span>
 			<input
 				class="input"
 				bind:value={fields.password_confirmation}
@@ -70,8 +70,8 @@
 
 	<div class="flex pt-8">
 		<div class="flex-1"></div>
-		<button type="submit" class="btn variant-filled-primary mr-2 text-white" disabled={loading}
-			>Submit</button
+		<button type="submit" class="variant-filled-primary btn mr-2 text-white" disabled={loading}
+			>Lưu</button
 		>
 	</div>
 </form>

@@ -23,7 +23,7 @@
 		if (loading) return;
 
 		if (fields.password !== fields.password_confirmation) {
-			error = 'Passwords do not match.';
+			error = 'Mật khẩu xác nhận không khớp.';
 			return;
 		}
 
@@ -33,12 +33,12 @@
 		try {
 			await resetPassword(fields);
 			toastStore.trigger({
-				message: 'Password reset successfully. Please sign in.',
+				message: 'Đặt lại mật khẩu thành công. Vui lòng đăng nhập.',
 				background: 'variant-filled-success'
 			});
 			goto('/login');
 		} catch (err) {
-			error = err.message ?? 'Password reset failed. The link may have expired.';
+			error = err.message ?? 'Đặt lại mật khẩu thất bại. Liên kết có thể đã hết hạn.';
 		} finally {
 			loading = false;
 		}
@@ -46,11 +46,11 @@
 </script>
 
 <svelte:head>
-	<title>Reset Password - LaraGym Member</title>
+	<title>Đặt lại mật khẩu - Aura Studio</title>
 </svelte:head>
 
-<h2 class="mb-1 text-xl font-bold text-white">Reset Password</h2>
-<p class="mb-6 text-sm text-surface-300">Enter your new password below.</p>
+<h2 class="mb-1 text-2xl font-semibold text-primary">Đặt lại mật khẩu</h2>
+<p class="mb-6 text-sm text-muted">Nhập mật khẩu mới của bạn bên dưới.</p>
 
 {#if error}
 	<div class="alert variant-filled-error mb-4 rounded-lg p-3 text-sm">
@@ -60,9 +60,9 @@
 
 <form onsubmit={onSubmit} class="flex flex-col gap-4">
 	<label class="label">
-		<span class="text-sm text-surface-200">Email</span>
+		<span class="text-sm text-primary">Email</span>
 		<input
-			class="input mt-1 rounded-lg"
+			class="input mt-1"
 			type="email"
 			name="email"
 			bind:value={fields.email}
@@ -74,9 +74,9 @@
 	</label>
 
 	<label class="label">
-		<span class="text-sm text-surface-200">New Password</span>
+		<span class="text-sm text-primary">Mật khẩu mới</span>
 		<input
-			class="input mt-1 rounded-lg"
+			class="input mt-1"
 			type="password"
 			name="password"
 			bind:value={fields.password}
@@ -89,9 +89,9 @@
 	</label>
 
 	<label class="label">
-		<span class="text-sm text-surface-200">Confirm New Password</span>
+		<span class="text-sm text-primary">Xác nhận mật khẩu mới</span>
 		<input
-			class="input mt-1 rounded-lg"
+			class="input mt-1"
 			type="password"
 			name="password_confirmation"
 			bind:value={fields.password_confirmation}
@@ -106,20 +106,20 @@
 	<button
 		type="submit"
 		disabled={loading}
-		class="btn variant-filled-primary w-full rounded-lg font-semibold"
+		class="btn variant-filled-primary w-full font-semibold"
 	>
 		{#if loading}
 			<svg class="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
 				<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
 				<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
 			</svg>
-			Resetting...
+			Đang đặt lại...
 		{:else}
-			Reset Password
+			Đặt lại mật khẩu
 		{/if}
 	</button>
 </form>
 
-<a href="/login" class="mt-4 block text-center text-sm text-primary-400 hover:text-primary-300">
-	Back to Sign In
+<a href="/login" class="mt-4 block text-center text-sm text-primary-hover underline-offset-4 hover:text-primary hover:underline">
+	Quay lại đăng nhập
 </a>

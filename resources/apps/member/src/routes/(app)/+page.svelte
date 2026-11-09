@@ -34,8 +34,17 @@
 			case 'pending':
 				return 'badge variant-filled-warning';
 			default:
-				return 'badge variant-filled-surface';
+				return 'badge variant-soft-primary';
 		}
+	};
+
+	// Display labels only; status values from the API stay in English
+	const statusLabels = {
+		active: 'Đang hoạt động',
+		expired: 'Hết hạn',
+		pending: 'Chờ xử lý',
+		inactive: 'Ngừng hoạt động',
+		suspended: 'Tạm ngưng'
 	};
 
 	onMount(async () => {
@@ -51,7 +60,7 @@
 			authStore.setUser(user);
 		} catch (err) {
 			toastStore.trigger({
-				message: err.message ?? 'Failed to load dashboard data.',
+				message: err.message ?? 'Không thể tải dữ liệu trang chủ.',
 				background: 'variant-filled-error'
 			});
 		} finally {
@@ -61,7 +70,7 @@
 </script>
 
 <svelte:head>
-	<title>Dashboard - LaraGym Member</title>
+	<title>Trang chủ - Aura Studio</title>
 </svelte:head>
 
 <div class="px-4 pb-4 pt-6">
@@ -70,125 +79,125 @@
 		<SkeletonLoader type="text" class="mb-6" />
 	{:else}
 		<div class="mb-6">
-			<p class="text-sm text-surface-300">Welcome back,</p>
-			<h1 class="text-2xl font-bold text-white">{user?.name ?? 'Member'}</h1>
+			<p class="text-sm text-muted">Chào mừng trở lại,</p>
+			<h1 class="text-3xl font-semibold text-primary">{user?.name ?? 'Hội viên'}</h1>
 			{#if user?.account_number}
-				<p class="text-xs text-surface-400">Account: {user.account_number}</p>
+				<p class="text-xs text-muted">Tài khoản: {user.account_number}</p>
 			{/if}
 		</div>
 	{/if}
 
 	<!-- Active subscription card -->
 	<section class="mb-6">
-		<h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-surface-400">
-			Current Subscription
+		<h2 class="mb-3 font-body text-sm font-semibold uppercase tracking-wide text-muted">
+			Gói đăng ký hiện tại
 		</h2>
 
 		{#if loading}
 			<SkeletonLoader type="card" />
 		{:else if activeSubscription}
-			<div class="card rounded-2xl bg-gradient-to-br from-primary-700 to-primary-900 p-5 shadow-lg">
+			<div class="card rounded-2xl bg-primary p-5 shadow-sm">
 				<div class="mb-3 flex items-start justify-between">
 					<div>
-						<p class="text-xs text-primary-200">Package</p>
+						<p class="text-xs text-secondary">Gói tập</p>
 						<p class="text-lg font-bold text-white">
-							{activeSubscription.package?.name ?? activeSubscription.package_name ?? 'Membership'}
+							{activeSubscription.package?.name ?? activeSubscription.package_name ?? 'Gói hội viên'}
 						</p>
 					</div>
 					<span class={getStatusClass(activeSubscription.status)}>
-						{activeSubscription.status}
+						{statusLabels[activeSubscription.status?.toLowerCase()] ?? activeSubscription.status}
 					</span>
 				</div>
 				<div class="flex gap-6">
 					{#if activeSubscription.starts_at}
 						<div>
-							<p class="text-xs text-primary-200">Start Date</p>
+							<p class="text-xs text-secondary">Ngày bắt đầu</p>
 							<p class="text-sm font-medium text-white">
-								{moment(activeSubscription.starts_at).format('MMM D, YYYY')}
+								{moment(activeSubscription.starts_at).format('L')}
 							</p>
 						</div>
 					{/if}
 					{#if activeSubscription.expires_at}
 						<div>
-							<p class="text-xs text-primary-200">Expires</p>
+							<p class="text-xs text-secondary">Ngày hết hạn</p>
 							<p class="text-sm font-medium text-white">
-								{moment(activeSubscription.expires_at).format('MMM D, YYYY')}
+								{moment(activeSubscription.expires_at).format('L')}
 							</p>
 						</div>
 					{/if}
 				</div>
 			</div>
 		{:else}
-			<div class="card rounded-2xl border border-surface-700 bg-surface-800 p-6 text-center">
-				<div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-surface-700">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 text-surface-400">
+			<div class="card rounded-2xl border border-secondary/60 bg-surface p-6 text-center">
+				<div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-secondary/40">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 text-muted">
 						<path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
 						<path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd" />
 					</svg>
 				</div>
-				<p class="font-semibold text-surface-200">No Active Subscription</p>
-				<p class="mt-1 text-sm text-surface-400">Contact your gym to get a membership plan.</p>
+				<p class="font-semibold text-primary">Chưa có gói đăng ký đang hoạt động</p>
+				<p class="mt-1 text-sm text-muted">Vui lòng liên hệ studio để đăng ký gói hội viên.</p>
 			</div>
 		{/if}
 	</section>
 
 	<!-- Quick links -->
 	<section>
-		<h2 class="mb-3 text-sm font-semibold uppercase tracking-wide text-surface-400">
-			Quick Access
+		<h2 class="mb-3 font-body text-sm font-semibold uppercase tracking-wide text-muted">
+			Truy cập nhanh
 		</h2>
 		<div class="grid grid-cols-2 gap-3">
 			<a
 				href="/subscription"
-				class="card flex flex-col items-center gap-2 rounded-2xl bg-surface-800 p-5 text-center transition-colors hover:bg-surface-700"
+				class="card flex flex-col items-center gap-2 rounded-2xl border border-secondary/60 bg-surface p-5 text-center transition-colors hover:bg-secondary/30"
 			>
-				<div class="flex h-12 w-12 items-center justify-center rounded-full bg-primary-500/20">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 text-primary-400">
+				<div class="flex h-12 w-12 items-center justify-center rounded-full bg-secondary/40">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 text-primary">
 						<path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
 						<path fill-rule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clip-rule="evenodd" />
 					</svg>
 				</div>
-				<p class="text-sm font-medium text-white">Subscriptions</p>
-				<p class="text-xs text-surface-400">View membership history</p>
+				<p class="text-sm font-medium text-primary">Gói đăng ký</p>
+				<p class="text-xs text-muted">Xem lịch sử gói hội viên</p>
 			</a>
 
 			<a
 				href="/attendance"
-				class="card flex flex-col items-center gap-2 rounded-2xl bg-surface-800 p-5 text-center transition-colors hover:bg-surface-700"
+				class="card flex flex-col items-center gap-2 rounded-2xl border border-secondary/60 bg-surface p-5 text-center transition-colors hover:bg-secondary/30"
 			>
 				<div class="flex h-12 w-12 items-center justify-center rounded-full bg-success-500/20">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 text-success-400">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 text-success-700">
 						<path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
 					</svg>
 				</div>
-				<p class="text-sm font-medium text-white">Attendance</p>
-				<p class="text-xs text-surface-400">Check your gym visits</p>
+				<p class="text-sm font-medium text-primary">Điểm danh</p>
+				<p class="text-xs text-muted">Xem lịch sử đến studio của bạn</p>
 			</a>
 
 			<a
 				href="/branches"
-				class="card flex flex-col items-center gap-2 rounded-2xl bg-surface-800 p-5 text-center transition-colors hover:bg-surface-700"
+				class="card flex flex-col items-center gap-2 rounded-2xl border border-secondary/60 bg-surface p-5 text-center transition-colors hover:bg-secondary/30"
 			>
 				<div class="flex h-12 w-12 items-center justify-center rounded-full bg-warning-500/20">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 text-warning-400">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 text-warning-700">
 						<path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h-2v2h2V5zm0 4h-2v2h2V9z" clip-rule="evenodd" />
 					</svg>
 				</div>
-				<p class="text-sm font-medium text-white">Branches</p>
-				<p class="text-xs text-surface-400">Find gym locations</p>
+				<p class="text-sm font-medium text-primary">Chi nhánh</p>
+				<p class="text-xs text-muted">Tìm địa điểm studio</p>
 			</a>
 
 			<a
 				href="/profile"
-				class="card flex flex-col items-center gap-2 rounded-2xl bg-surface-800 p-5 text-center transition-colors hover:bg-surface-700"
+				class="card flex flex-col items-center gap-2 rounded-2xl border border-secondary/60 bg-surface p-5 text-center transition-colors hover:bg-secondary/30"
 			>
-				<div class="flex h-12 w-12 items-center justify-center rounded-full bg-tertiary-500/20">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 text-tertiary-400">
+				<div class="flex h-12 w-12 items-center justify-center rounded-full bg-secondary/40">
+					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 text-primary">
 						<path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
 					</svg>
 				</div>
-				<p class="text-sm font-medium text-white">Profile</p>
-				<p class="text-xs text-surface-400">Edit your details</p>
+				<p class="text-sm font-medium text-primary">Hồ sơ</p>
+				<p class="text-xs text-muted">Chỉnh sửa thông tin của bạn</p>
 			</a>
 		</div>
 	</section>

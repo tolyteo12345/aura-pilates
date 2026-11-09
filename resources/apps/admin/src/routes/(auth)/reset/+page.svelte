@@ -25,7 +25,7 @@
 		})
 			.then(() => {
 				toast.trigger({
-					message: 'You have successfully reset your password. Redirecting...',
+					message: 'Bạn đã đặt lại mật khẩu thành công. Đang chuyển hướng...',
 					background: 'variant-filled-success'
 				});
 				setTimeout(() => (window.location.href = '/'), 1000);
@@ -43,14 +43,14 @@
 </script>
 
 <div class="mb-6">
-	<h3 class="h3">Reset Password</h3>
-	<p>Use the form below to reset your password</p>
+	<h3 class="h3">Đặt lại mật khẩu</h3>
+	<p>Vui lòng điền thông tin bên dưới để đặt lại mật khẩu</p>
 </div>
 
 <form action="" onsubmit={onSubmit}>
 	<div class="mb-6">
 		<label class="label">
-			<span>Password</span>
+			<span>Mật khẩu</span>
 			<input
 				class="input"
 				bind:value={fields.password}
@@ -64,7 +64,7 @@
 	</div>
 	<div class="mb-6">
 		<label class="label">
-			<span>Password Confirmation</span>
+			<span>Xác nhận mật khẩu</span>
 			<input
 				class="input"
 				bind:value={fields.password_confirmation}
@@ -79,7 +79,7 @@
 	<button
 		type="submit"
 		disabled={loading}
-		class="variant-filled-primary btn w-full font-bold text-white">Reset Password</button
+		class="variant-filled-primary btn w-full font-bold text-white">Đặt lại mật khẩu</button
 	>
-	<a href="/login" class="block pt-2 text-center">Back to login </a>
+	<a href="/login" class="block pt-2 text-center">Quay lại đăng nhập</a>
 </form>

@@ -10,7 +10,7 @@
 
 	const store = getMemberStoreContext();
 
-	const title = 'Add Member';
+	const title = 'Thêm hội viên';
 
 	let loading = $state(false);
 
@@ -31,7 +31,7 @@
 			.then(() => {
 				goto('/members');
 				toast.trigger({
-					message: 'Successfully created',
+					message: 'Đã tạo thành công',
 					background: 'variant-filled-success'
 				});
 			})
@@ -50,7 +50,7 @@
 </svelte:head>
 
 <div class="p-4 lg:max-w-1200 lg:p-6">
-	<div class="card bg-white p-4 lg:p-6">
+	<div class="card bg-surface p-4 lg:p-6">
 		<header class="card-header mb-6 flex items-center">
 			<h3 class="h3">{title}</h3>
 			<div class="flex-1"></div>
@@ -58,7 +58,7 @@
 		<form action="" onsubmit={onSubmit}>
 			<div class="mb-4">
 				<label class="label">
-					<span>Name</span>
+					<span>Tên</span>
 					<input
 						class="input"
 						bind:value={fields.name}
@@ -86,7 +86,7 @@
 
 			<div class="mb-4">
 				<label class="label">
-					<span>Password</span>
+					<span>Mật khẩu</span>
 					<input
 						class="input"
 						bind:value={fields.password}
@@ -100,7 +100,7 @@
 
 			<div class="mb-4">
 				<label class="label">
-					<span>Password Confirmation</span>
+					<span>Xác nhận mật khẩu</span>
 					<input
 						class="input"
 						bind:value={fields.password_confirmation}
@@ -117,13 +117,13 @@
 					type="button"
 					onclick={() => goto('/members')}
 					class="variant-filled-error btn text-white"
-					disabled={loading}>Cancel</button
+					disabled={loading}>Hủy</button
 				>
 				<div class="flex-1"></div>
 				<button
 					type="submit"
 					class="variant-filled-primary btn mr-2 text-white"
-					disabled={loading}>Submit</button
+					disabled={loading}>Lưu</button
 				>
 			</div>
 		</form>

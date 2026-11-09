@@ -41,7 +41,7 @@
 		})
 			.then(() => {
 				toast.trigger({
-					message: 'Successfully created',
+					message: 'Đã tạo thành công',
 					background: 'variant-filled-success'
 				});
 				window.dispatchEvent(new CustomEvent('user_subscription'));
@@ -61,21 +61,21 @@
 	<!-- Responsive Container (recommended) -->
 	<form action="" onsubmit={onSubmit} class="flex flex-1 flex-col">
 		<ModalHeader>
-			<div class="flex-1 font-bold">Member Subscription</div>
+			<div class="flex-1 font-bold">Gói đăng ký của hội viên</div>
 			<ModalClose onClose={() => modalStore.close()} />
 		</ModalHeader>
 		<ModalBody>
 			<div class="mb-4">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
-					<span>Package</span>
+					<span>Gói tập</span>
 					<PackageSelect bind:value={fields.package} />
 				</label>
 			</div>
 
 			<div class="mb-4">
 				<label class="label">
-					<span>Interval</span>
+					<span>Số chu kỳ</span>
 					<input
 						class="input"
 						bind:value={fields.interval}
@@ -94,13 +94,13 @@
 					type="button"
 					onclick={() => modalStore.close()}
 					class="variant-filled-error btn text-white"
-					disabled={loading}>Cancel</button
+					disabled={loading}>Hủy</button
 				>
 				<div class="flex-1"></div>
 				<button
 					type="submit"
 					class="variant-filled-primary btn mr-2 text-white"
-					disabled={loading}>Submit</button
+					disabled={loading}>Lưu</button
 				>
 			</div>
 		</ModalFooter>

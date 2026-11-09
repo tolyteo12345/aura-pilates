@@ -14,7 +14,7 @@
 		Authorization: getBearerToken()
 	});
 
-	const title = 'New Subscription';
+	const title = 'Thêm gói đăng ký';
 
 	let loading = $state(false);
 
@@ -34,7 +34,7 @@
 			.then(() => {
 				goto('/subscriptions');
 				toast.trigger({
-					message: 'Successfully created',
+					message: 'Đã tạo thành công',
 					background: 'variant-filled-success'
 				});
 			})
@@ -52,8 +52,8 @@
 	<title>{title}</title>
 </svelte:head>
 
-<div class="lg:max-w-1200 p-4 lg:p-6">
-	<div class="card bg-white p-4 lg:p-6">
+<div class="p-4 lg:max-w-1200 lg:p-6">
+	<div class="card bg-surface p-4 lg:p-6">
 		<header class="card-header mb-6 flex items-center">
 			<h3 class="h3">{title}</h3>
 			<div class="flex-1"></div>
@@ -63,7 +63,7 @@
 			<div class="mb-4">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
-					<span>User</span>
+					<span>Hội viên</span>
 					<UserSelect bind:value={fields.user} />
 				</label>
 			</div>
@@ -71,14 +71,14 @@
 			<div class="mb-4">
 				<!-- svelte-ignore a11y-label-has-associated-control -->
 				<label class="label">
-					<span>Package</span>
+					<span>Gói tập</span>
 					<PackageSelect bind:value={fields.package} />
 				</label>
 			</div>
 
 			<div class="mb-4">
 				<label class="label">
-					<span>Interval</span>
+					<span>Số chu kỳ</span>
 					<input
 						class="input"
 						bind:value={fields.interval}
@@ -95,14 +95,14 @@
 				<button
 					type="button"
 					onclick={() => goto('/subscriptions')}
-					class="btn variant-filled-error text-white"
-					disabled={loading}>Cancel</button
+					class="variant-filled-error btn text-white"
+					disabled={loading}>Hủy</button
 				>
 				<div class="flex-1"></div>
 				<button
 					type="submit"
-					class="btn variant-filled-primary mr-2 text-white"
-					disabled={loading}>Submit</button
+					class="variant-filled-primary btn mr-2 text-white"
+					disabled={loading}>Lưu</button
 				>
 			</div>
 		</form>

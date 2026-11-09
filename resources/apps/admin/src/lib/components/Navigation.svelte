@@ -32,52 +32,52 @@
 		[
 			{
 				path: '/',
-				name: 'Dashboard',
+				name: 'Tổng quan',
 				icon: Dashboard
 			},
 			{
 				path: '/activities',
-				name: 'Activities',
+				name: 'Nhật ký hoạt động',
 				icon: Activities
 			},
 			{
 				path: '/attendance',
-				name: 'Attendance',
+				name: 'Điểm danh',
 				icon: Attendance
 			},
 			{
 				path: '/members',
-				name: 'Members',
+				name: 'Hội viên',
 				icon: Members
 			},
 			{
 				path: '/branches',
-				name: 'Branches',
+				name: 'Chi nhánh',
 				icon: Branches
 			},
 			{
 				path: '/subscriptions',
-				name: 'Subscriptions',
+				name: 'Gói đăng ký',
 				icon: Subscriptions
 			},
 			{
 				path: '/packages',
-				name: 'Packages',
+				name: 'Gói tập',
 				icon: Packages
 			},
 			{
 				path: '/services',
-				name: 'Services',
+				name: 'Dịch vụ',
 				icon: Services
 			},
 			{
 				path: '/cycles',
-				name: 'Cycles',
+				name: 'Chu kỳ thanh toán',
 				icon: Cycles
 			},
 			{
 				path: '/logout',
-				name: 'Logout',
+				name: 'Đăng xuất',
 				icon: Logout
 			}
 		].map((v) => {
@@ -113,7 +113,8 @@
 	}
 
 	a.active {
-		@apply bg-blue-900;
+		@apply bg-primary-hover font-semibold;
+		box-shadow: inset 3px 0 0 rgb(var(--color-secondary-500));
 	}
 
 	a:focus {

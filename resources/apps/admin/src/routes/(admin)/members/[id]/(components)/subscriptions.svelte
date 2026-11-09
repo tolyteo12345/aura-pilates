@@ -83,7 +83,7 @@
 			await api.delete(`/subscriptions/${item.id}`);
 
 			toast.trigger({
-				message: 'Subscription was successfully deleted',
+				message: 'Đã xóa gói đăng ký thành công',
 				background: 'variant-filled-success'
 			});
 		} catch (error) {
@@ -98,8 +98,8 @@
 		const modal = {
 			type: 'confirm',
 			// Data
-			title: 'Please Confirm',
-			body: 'Are you sure you wish to proceed?',
+			title: 'Vui lòng xác nhận',
+			body: 'Bạn có chắc chắn muốn tiếp tục?',
 			response: (r) => onConfirmDelete(item)
 		};
 		modalStore.trigger(modal);
@@ -108,10 +108,10 @@
 
 <div class="flex flex-col">
 	<div class="mb-4 flex items-center">
-		<h3 class="h3 mb-4">Member Subscriptions</h3>
+		<h3 class="h3 mb-4">Gói đăng ký của hội viên</h3>
 		<div class="flex-1"></div>
 		<a href="/" onclick={prevent(onAddSubscription)} class="variant-filled btn">
-			Add Subscription
+			Thêm gói đăng ký
 		</a>
 	</div>
 

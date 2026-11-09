@@ -63,9 +63,9 @@
 			let description;
 
 			if (type === 'login') {
-				description = `User ${user.id} : ${user.name} has logged in`;
+				description = `Hội viên ${user.id} : ${user.name} đã vào tập`;
 			} else if (type === 'logout') {
-				description = `User ${user.id} : ${user.name} has logged out`;
+				description = `Hội viên ${user.id} : ${user.name} đã rời phòng tập`;
 			}
 
 			await api.post('/activities', {
@@ -94,23 +94,23 @@
 	};
 </script>
 
-<div class="card flex-1 flex-col bg-white shadow-lg lg:flex-row">
+<div class="card flex-1 flex-col bg-surface shadow-lg lg:flex-row">
 	<div class="card-header border-b p-4">
-		<div class="flex-1 font-bold">Member Login</div>
+		<div class="flex-1 font-bold">Điểm danh hội viên</div>
 	</div>
 	<div class="card-body p-4">
-		<p class="mb-2 block">Please search for a member to get started.</p>
+		<p class="mb-2 block">Vui lòng tìm hội viên để bắt đầu.</p>
 		<UserSelect
 			searchable
 			clearable
 			bind:value={user}
-			placeholder="Search Member"
+			placeholder="Tìm hội viên"
 			onChange={onChangeUser}
 		/>
 		{#if user}
 			<div class="pt-4">
-				<div class="mb-4 mt-6 flex-1 font-bold">Member Information</div>
-				<div class="card mb-6 w-full bg-white shadow-lg">
+				<div class="mb-4 mt-6 flex-1 font-bold">Thông tin hội viên</div>
+				<div class="card mb-6 w-full bg-surface shadow-lg">
 					<div class="card-body p-4">
 						<div class="flex items-center gap-4">
 							<Avatar
@@ -125,18 +125,18 @@
 									>
 									<Status status={user.status} />
 								</div>
-								<a href="mailto:{user.email}" class="text-sm text-gray-500"
+								<a href="mailto:{user.email}" class="text-sm text-muted"
 									>{user.email}</a
 								>
 							</div>
 							<div class="flex-1"></div>
 							<a href={`/members/${user.id}`} class="variant-filled btn btn-sm">
-								View Profile
+								Xem hồ sơ
 							</a>
 						</div>
 					</div>
 				</div>
-				<div class="mb-4 flex-1 font-bold">Member Subscriptions</div>
+				<div class="mb-4 flex-1 font-bold">Gói đăng ký của hội viên</div>
 				<div class="grid grid-cols-1 gap-2">
 					{#if subscriptions.length}
 						<div class="mb-4">
@@ -145,17 +145,17 @@
 							{/each}
 						</div>
 					{:else}
-						<div class="card mb-4 w-full bg-white shadow-lg">
+						<div class="card mb-4 w-full bg-surface shadow-lg">
 							<div class="card-body p-4">
-								<div class="text-center text-xs text-gray-500">
-									This member does not have any subscriptions
+								<div class="text-center text-xs text-muted">
+									Hội viên này chưa có gói đăng ký nào
 								</div>
 							</div>
 						</div>
 					{/if}
 				</div>
-				<div class="mb-4 flex-1 font-bold">Member Branches</div>
-				<div class="card w-full bg-white shadow-lg">
+				<div class="mb-4 flex-1 font-bold">Chi nhánh của hội viên</div>
+				<div class="card w-full bg-surface shadow-lg">
 					<div class="card-body p-4">
 						{#if branches.length}
 							<ul class="branches">
@@ -164,8 +164,8 @@
 								{/each}
 							</ul>
 						{:else}
-							<div class="text-center text-xs text-gray-500">
-								This member does not have any branches
+							<div class="text-center text-xs text-muted">
+								Hội viên này chưa thuộc chi nhánh nào
 							</div>
 						{/if}
 					</div>
@@ -177,10 +177,10 @@
 		<div class="flex items-center border-t p-4">
 			<form class="flex flex-1 items-center gap-4" onsubmit={onLogActivity}>
 				<select class="select" bind:value={type} name="type" required>
-					<option value="login">Member Login</option>
-					<option value="logout">Member Logout</option>
+					<option value="login">Vào tập (check-in)</option>
+					<option value="logout">Ra về (check-out)</option>
 				</select>
-				<button class="variant-filled btn"> Log Status </button>
+				<button class="variant-filled btn"> Ghi nhận </button>
 			</form>
 		</div>
 	{/if}

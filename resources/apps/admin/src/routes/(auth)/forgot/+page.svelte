@@ -19,7 +19,7 @@
 			.post('/forgot', fields)
 			.then(() => {
 				toast.trigger({
-					message: 'Password reset instruction has been sent. Redirecting...',
+					message: 'Hướng dẫn đặt lại mật khẩu đã được gửi. Đang chuyển hướng...',
 					background: 'variant-filled-success'
 				});
 				setTimeout(() => (window.location.href = '/'), 1000);
@@ -37,8 +37,8 @@
 </script>
 
 <div class="mb-6">
-	<h3 class="h3">Forgot Password</h3>
-	<p>Please provide your email to reset your password.</p>
+	<h3 class="h3">Quên mật khẩu</h3>
+	<p>Vui lòng nhập email của bạn để đặt lại mật khẩu.</p>
 </div>
 
 <form action="" onsubmit={onSubmit}>
@@ -59,7 +59,7 @@
 	<button
 		type="submit"
 		disabled={loading}
-		class="variant-filled-primary btn w-full font-bold text-white">Submit</button
+		class="variant-filled-primary btn w-full font-bold text-white">Gửi</button
 	>
-	<a href="/login" class="block pt-2 text-center">Back to login </a>
+	<a href="/login" class="block pt-2 text-center">Quay lại đăng nhập</a>
 </form>

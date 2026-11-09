@@ -17,10 +17,7 @@ export const POST = async ({ request, cookies }) => {
 		if (response.errors) return json({ success: false, ...response }, 401);
 
 		if (!response.user.is_admin) {
-			return json(
-				{ success: false, message: 'you are not allowed to access this page' },
-				401
-			);
+			return json({ success: false, message: 'Bạn không có quyền truy cập trang này' }, 401);
 		}
 
 		cookies.set('token', response.access_token, { path: '/' });

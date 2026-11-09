@@ -1,7 +1,78 @@
 /* Write your global styles here, in PostCSS syntax */
+/* Aura Design System: tokens in ../../aura-theme.cjs, rules in docs/design-system.md */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		font-family: var(--theme-font-family-heading);
+		font-weight: 600;
+		/* Cormorant defaults to old-style figures, where 0 reads like "o" */
+		font-variant-numeric: lining-nums;
+	}
+
+	:focus-visible {
+		outline: 2px solid rgb(var(--color-primary-400));
+		outline-offset: 2px;
+	}
+
+	/* @tailwindcss/forms ships a cool-gray placeholder */
+	input::placeholder,
+	textarea::placeholder {
+		color: rgb(var(--color-surface-500));
+	}
+}
+
+@layer components {
+	/* Cormorant has a small x-height, so headings step up on wider screens */
+	.h1 {
+		@apply text-3xl md:text-4xl;
+	}
+
+	.h2 {
+		@apply text-2xl md:text-3xl;
+	}
+
+	.h3 {
+		@apply text-xl md:text-2xl;
+	}
+
+	/* Primary buttons use the Primary Hover token instead of Skeleton's brightness filter */
+	.btn.variant-filled-primary:hover,
+	.btn-icon.variant-filled-primary:hover {
+		@apply bg-primary-hover;
+		filter: none;
+	}
+
+	/* Inputs sit on Surface cards, so they use White for contrast */
+	.input,
+	.textarea,
+	.select {
+		@apply bg-white;
+	}
+}
+
+/* svelte-select (*Select.svelte components) ships blue defaults; map them to Aura tokens */
+.svelte-select {
+	--background: white; /* matches .input */
+	--list-background: rgb(var(--color-surface-100));
+	--border: 1px solid rgb(var(--color-surface-400));
+	--border-hover: 1px solid rgb(var(--color-surface-500));
+	--border-focused: 1px solid rgb(var(--color-primary-500));
+	--border-radius: var(--theme-rounded-container);
+	--item-hover-bg: rgb(var(--color-secondary-500) / 0.3);
+	--item-is-active-bg: rgb(var(--color-primary-500));
+	--item-is-active-color: rgb(var(--on-primary));
+	--item-active-background: rgb(var(--color-secondary-500) / 0.5);
+	--placeholder-color: rgb(var(--color-surface-500));
+	--list-empty-color: rgb(var(--color-surface-500));
+}
 
 html,
 body {
@@ -9,7 +80,7 @@ body {
 }
 
 #sidebar-left {
-	@apply bg-gray-900;
+	@apply bg-primary;
 }
 
 .list-nav a {
@@ -18,5 +89,10 @@ body {
 }
 
 .list-nav a:hover {
-	@apply bg-gray-800 !important;
+	@apply bg-primary-hover !important;
+}
+
+.list-nav a:focus-visible {
+	@apply outline-secondary;
+	outline-offset: -2px;
 }

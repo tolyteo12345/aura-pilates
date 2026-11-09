@@ -37,7 +37,7 @@
 			lastPage = data.last_page ?? Math.ceil(totalItems / perPage);
 		} catch (err) {
 			toastStore.trigger({
-				message: err.message ?? 'Failed to load attendance.',
+				message: err.message ?? 'Không thể tải dữ liệu điểm danh.',
 				background: 'variant-filled-error'
 			});
 		} finally {
@@ -75,19 +75,19 @@
 </script>
 
 <svelte:head>
-	<title>Attendance - LaraGym Member</title>
+	<title>Điểm danh - Aura Studio</title>
 </svelte:head>
 
 <div class="px-4 pb-4 pt-6">
-	<h1 class="mb-4 text-2xl font-bold text-white">Attendance</h1>
+	<h1 class="mb-4 text-3xl font-semibold text-primary">Điểm danh</h1>
 
 	<!-- Month filter -->
 	<div class="mb-4">
 		<label class="label">
-			<span class="text-sm text-surface-300">Filter by month</span>
+			<span class="text-sm text-muted">Lọc theo tháng</span>
 			<input
 				type="month"
-				class="input mt-1 rounded-lg bg-surface-800 text-white"
+				class="input mt-1"
 				bind:value={selectedMonth}
 				onchange={onMonthChange}
 			/>
@@ -98,50 +98,50 @@
 	{#if loading}
 		<SkeletonLoader type="list" count={8} />
 	{:else if items.length === 0}
-		<div class="card mt-4 rounded-2xl border border-surface-700 bg-surface-800 p-8 text-center">
-			<div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-surface-700">
-				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 text-surface-400">
+		<div class="card mt-4 rounded-2xl border border-secondary/60 bg-surface p-8 text-center">
+			<div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-secondary/40">
+				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6 text-muted">
 					<path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
 				</svg>
 			</div>
-			<p class="font-semibold text-surface-200">No attendance records</p>
-			<p class="mt-1 text-sm text-surface-400">
-				{selectedMonth ? 'No visits recorded for this month.' : 'No gym visits recorded yet.'}
+			<p class="font-semibold text-primary">Chưa có dữ liệu điểm danh</p>
+			<p class="mt-1 text-sm text-muted">
+				{selectedMonth ? 'Không có lượt đến studio nào trong tháng này.' : 'Chưa có lượt đến studio nào.'}
 			</p>
 		</div>
 	{:else}
-		<div class="card overflow-hidden rounded-2xl bg-surface-800">
+		<div class="card overflow-hidden rounded-2xl border border-secondary/60 bg-surface">
 			{#each items as item, i}
 				<div
 					class="flex items-center gap-4 px-4 py-3 {i < items.length - 1
-						? 'border-b border-surface-700'
+						? 'border-b border-secondary'
 						: ''}"
 				>
 					<!-- Date badge -->
-					<div class="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-xl bg-primary-500/20">
-						<span class="text-lg font-bold leading-none text-primary-400">
+					<div class="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-xl bg-secondary/40">
+						<span class="text-lg font-bold leading-none text-primary">
 							{moment(item.created_at ?? item.date).format('D')}
 						</span>
-						<span class="text-xs text-primary-300">
+						<span class="text-xs text-muted">
 							{moment(item.created_at ?? item.date).format('MMM')}
 						</span>
 					</div>
 
 					<div class="flex-1 overflow-hidden">
-						<p class="truncate font-medium text-white">
-							{item.branch?.name ?? item.branch_name ?? 'Gym Visit'}
+						<p class="truncate font-medium text-primary">
+							{item.branch?.name ?? item.branch_name ?? 'Lượt đến studio'}
 						</p>
-						<p class="text-xs text-surface-400">
-							{moment(item.created_at ?? item.date).format('dddd, MMMM D, YYYY')}
+						<p class="text-xs text-muted">
+							{moment(item.created_at ?? item.date).format('dddd, L')}
 						</p>
 						{#if item.description}
-							<p class="mt-0.5 truncate text-xs text-surface-400">{item.description}</p>
+							<p class="mt-0.5 truncate text-xs text-muted">{item.description}</p>
 						{/if}
 					</div>
 
 					<div class="shrink-0 text-right">
-						<span class="text-xs text-surface-400">
-							{moment(item.created_at ?? item.date).format('h:mm A')}
+						<span class="text-xs text-muted">
+							{moment(item.created_at ?? item.date).format('LT')}
 						</span>
 					</div>
 				</div>
@@ -154,19 +154,19 @@
 				<button
 					onclick={prevPage}
 					disabled={currentPage <= 1}
-					class="btn variant-soft rounded-lg disabled:opacity-40"
+					class="btn variant-soft disabled:opacity-40"
 				>
-					&larr; Previous
+					&larr; Trước
 				</button>
-				<span class="text-sm text-surface-300">
-					Page {currentPage} of {lastPage}
+				<span class="text-sm text-muted">
+					Trang {currentPage}/{lastPage}
 				</span>
 				<button
 					onclick={nextPage}
 					disabled={currentPage >= lastPage}
-					class="btn variant-soft rounded-lg disabled:opacity-40"
+					class="btn variant-soft disabled:opacity-40"
 				>
-					Next &rarr;
+					Sau &rarr;
 				</button>
 			</div>
 		{/if}
